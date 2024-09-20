@@ -1,6 +1,11 @@
 import Status from "./Status";
 
-export default function Friend({ friend }) {
+export default function Friend({
+  handleBtnDisplay,
+  clicked,
+  handleSelectBtn,
+  friend,
+}) {
   const total = friend.balSheet.reduce((acc, num) => (num += acc), 0);
 
   return (
@@ -12,7 +17,15 @@ export default function Friend({ friend }) {
         <span className="name">{friend.name}</span>
         <Status total={total} name={friend.name} />
       </div>
-      <button className="frnd-btn">Select</button>
+      <button
+        className="frnd-btn"
+        onClick={() => {
+          handleBtnDisplay(friend.id);
+          handleSelectBtn(friend.id);
+        }}
+      >
+        {friend.id === clicked ? "Close" : "Select"}
+      </button>
     </div>
   );
 }

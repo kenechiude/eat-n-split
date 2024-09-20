@@ -21,13 +21,22 @@ export default function App() {
     },
   ]);
 
-  const [isOpen, setIsopen] = useState(false);
+  const [billFormIsOpen, setBillFormIsopen] = useState(false);
   const [activeFriend, setActiveFriend] = useState(null);
+
+  function handleSelectBtn(id) {
+    setActiveFriend(friends.find((friend) => friend.id === id));
+    setBillFormIsopen(activeFriend?.id === id ? false : true);
+  }
 
   return (
     <div className="container">
-      <FriendsDisplay friends={friends} setFriends={setFriends} />
-      {isOpen && <BillForm />}
+      <FriendsDisplay
+        handleSelectBtn={handleSelectBtn}
+        friends={friends}
+        setFriends={setFriends}
+      />
+      {billFormIsOpen && <BillForm activeFriend={activeFriend} />}
     </div>
   );
 }

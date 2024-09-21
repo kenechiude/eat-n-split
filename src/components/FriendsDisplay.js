@@ -4,18 +4,15 @@ import FriendForm from "./FriendForm";
 
 export default function FriendsDisplay({
   handleSelectBtn,
+  handleCancel,
+  activeFriend,
   friends,
   setFriends,
 }) {
   const [friendFormIsOpen, setFriendformIsOpen] = useState(false);
-  const [clicked, setClicked] = useState(null);
 
   function handleDisplay() {
     setFriendformIsOpen(!friendFormIsOpen);
-  }
-
-  function handleBtnDisplay(id) {
-    setClicked(id === clicked ? null : id);
   }
 
   return (
@@ -23,8 +20,7 @@ export default function FriendsDisplay({
       {friends.map((friend) => (
         <Friend
           handleSelectBtn={handleSelectBtn}
-          handleBtnDisplay={handleBtnDisplay}
-          clicked={clicked}
+          activeFriend={activeFriend}
           friend={friend}
           key={friend.id}
         />
@@ -36,7 +32,13 @@ export default function FriendsDisplay({
           setFriends={setFriends}
         />
       ) : (
-        <button className="add-frnd-btn" onClick={handleDisplay}>
+        <button
+          className="add-frnd-btn"
+          onClick={() => {
+            handleDisplay();
+            handleCancel();
+          }}
+        >
           Add Friend
         </button>
       )}

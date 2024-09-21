@@ -1,15 +1,10 @@
 import Status from "./Status";
 
-export default function Friend({
-  handleBtnDisplay,
-  clicked,
-  handleSelectBtn,
-  friend,
-}) {
+export default function Friend({ activeFriend, handleSelectBtn, friend }) {
   const total = friend.balSheet.reduce((acc, num) => (num += acc), 0);
 
   return (
-    <div className="friend">
+    <div className={`friend ${activeFriend?.id === friend.id && "active"}`}>
       <div className="dp">
         <span>{friend.name.slice(0, 2).toUpperCase()}</span>
       </div>
@@ -20,11 +15,10 @@ export default function Friend({
       <button
         className="frnd-btn"
         onClick={() => {
-          handleBtnDisplay(friend.id);
           handleSelectBtn(friend.id);
         }}
       >
-        {friend.id === clicked ? "Close" : "Select"}
+        Select
       </button>
     </div>
   );
